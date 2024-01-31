@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import viteLogo from "/vite.svg";
+// import viteLogo from "/vite.svg";
 import "./App.css";
 import Keyboard from "./Keyboard";
 import Word from "./Word";
@@ -8,10 +8,11 @@ import WordManager from "./WordManager";
 enum GameState {
 	READY = 0,
 	PLAYING = 1,
-	GAME_OVER = 2,
+	WON = 2,
+	GAME_OVER = 3,
 }
 
-function App() {
+const App = () => {
 	const MAX_STRIKES = 3;
 
 	const [gameState, setGameState] = useState<GameState>(GameState.READY);
@@ -21,8 +22,9 @@ function App() {
 	const [strikes, setStrikes] = useState<number>(0);
 
 	const addLetter = (letter: string) => {
-		letter = letter.toLowerCase();
+		if (gameState !== GameState.PLAYING) return;
 
+		letter = letter.toLowerCase();
 		const locations: number[] = [];
 
 		word.split("").forEach((char, index) => {
@@ -30,7 +32,9 @@ function App() {
 			locations.push(index);
 		});
 
-		if (locations.length === 0) return incrementStrike();
+		if (locations.length === 0) {
+			return incrementStrike();
+		}
 
 		setCurrentGuess((oldGuess) => {
 			const newGuess = oldGuess.split("");
@@ -41,13 +45,17 @@ function App() {
 
 			return newGuess.join("");
 		});
+
+		if (currentGuess === word) {
+			setGameState(GameState.WON);
+		}
 	};
 
 	const incrementStrike = () => {
 		setStrikes((oldStrikes) => oldStrikes + 1);
 
-		if (strikes <= MAX_STRIKES) {
-			// Game over!
+		if (strikes >= MAX_STRIKES) {
+			setGameState(GameState.GAME_OVER);
 		}
 	};
 
@@ -64,15 +72,15 @@ function App() {
 
 	return (
 		<>
-			<h1>Hangman (React)</h1>
-			<img src={viteLogo} className="logo" alt="Vite logo" />
+			<h1 className="header">Hangman (React)</h1>
+			{/* <img src={viteLogo} className="logo" alt="Vite logo" /> */}
 			<div className="card">
 				<Word word={word} currentGuess={currentGuess} hint={hint} />
 			</div>
 			<Keyboard addLetter={addLetter} />
 			<footer>
 				<p className="footer">
-					Hangman (React) -- Made with ❤ by{" "}
+					Made with <span className="pink">❤</span> by{" "}
 					<a href="https://github.com/phyziyx" target="_blank">
 						Phyziyx
 					</a>
@@ -80,6 +88,6 @@ function App() {
 			</footer>
 		</>
 	);
-}
+};
 
 export default App;

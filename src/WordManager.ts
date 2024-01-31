@@ -7,15 +7,10 @@ interface ICharactersCount {
 const BLACKLISTED_CHARACTERS = [' ', `'`];
 
 class WordsManager {
-	selectWord = () => {
-		const wordsLen = wordsList.length;
-		const idx = Math.floor(wordsLen * Math.random());
+	censorWord = (word: string) => {
+		word = word.toLowerCase();
 
-		const selectedWord = wordsList[idx];
-		const newWord = selectedWord.word.toLowerCase();
-		
-		const letters = newWord.split('');
-
+		const letters = word.split('');
 		const charactersCount: ICharactersCount = {};
 		letters.forEach(letter => {
 			charactersCount[letter] = (charactersCount[letter] || 0) + 1;
@@ -28,13 +23,24 @@ class WordsManager {
 			sortedTable[key] = charactersCount[key];
 		});
 
-		let newGuess = newWord;
+		let censored = word;
 		for (let i = 0, len = sortedCharactersCount.length; i < len - 1; i++) {
 			const letter = sortedCharactersCount[i];
 			if (BLACKLISTED_CHARACTERS.includes(letter)) continue;
 
-			newGuess = newGuess.replaceAll(letter, '_');
+			censored = censored.replaceAll(letter, '_');
 		}
+
+		return censored;
+	}
+
+	selectWord = () => {
+		const wordsLen = wordsList.length;
+		const idx = Math.floor(wordsLen * Math.random());
+
+		const selectedWord = wordsList[idx];
+		const newWord = selectedWord.word;
+		const newGuess = this.censorWord(newWord);
 
 		return {
 			newWord,
