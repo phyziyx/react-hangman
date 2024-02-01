@@ -1,10 +1,9 @@
 interface IProps {
-	word: string;
 	currentGuess: string;
 	hint: string;
 }
 
-const Word = ({ word, currentGuess, hint }: IProps) => {
+const Word = ({ currentGuess, hint }: IProps) => {
 	return (
 		<>
 			<h2>{currentGuess}</h2>
@@ -12,8 +11,6 @@ const Word = ({ word, currentGuess, hint }: IProps) => {
 
 			{hint && <b>Hint: {hint}</b>}
 			<br />
-
-			{word && <p>DEBUG: Current word selected is: {word}</p>}
 		</>
 	);
 };

@@ -1,6 +1,12 @@
 import KeyButton from "./KeyButton";
+import { GameState } from "./data";
 
-const Keyboard = ({ addLetter }: { addLetter(letter: string): void }) => {
+interface IProps {
+	gameState: GameState;
+	addLetter(letter: string): void;
+}
+
+const Keyboard = ({ gameState, addLetter }: IProps) => {
 	return (
 		<>
 			{[
@@ -34,6 +40,7 @@ const Keyboard = ({ addLetter }: { addLetter(letter: string): void }) => {
 				return (
 					<KeyButton
 						key={letter}
+						gameState={gameState}
 						letter={letter}
 						addLetter={addLetter}
 					/>

@@ -13,6 +13,47 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.card {
+	padding: 2em;
+}
+
+.header {
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	text-align: center;
+	position: fixed;
+}
+
+.footer {
+	bottom: 0%;
+	left: 0%;
+	width: 100%;
+	text-align: center;
+	position: fixed;
+	color: #888;
+}
+
+.pink {
+	color: #ff748c;
+}
+
+.status {
+	border-style: solid;
+
+	&.lost {
+		background-color: red;
+	}
+
+	&.won {
+		background-color: green;
+	}
+}
+
+button {
+	border-style: solid;
+}
+
 a {
 	font-weight: 500;
 	color: #646cff;
@@ -37,8 +78,9 @@ h1 {
 
 button {
 	border-radius: 8px;
-	border: 1px solid transparent;
+	border: 1px solid black;
 	padding: 0.6em 1.2em;
+	margin: 1rem;
 	font-size: 1em;
 	font-weight: 500;
 	font-family: inherit;

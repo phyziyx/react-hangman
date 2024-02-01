@@ -1,20 +1,14 @@
 import { useEffect, useState } from "react";
-// import viteLogo from "/vite.svg";
 import "./App.css";
 import Keyboard from "./Keyboard";
 import Word from "./Word";
 import WordManager from "./WordManager";
-
-enum GameState {
-	READY = 0,
-	PLAYING = 1,
-	WON = 2,
-	GAME_OVER = 3,
-}
+import Hangman from "./Hangman";
+import { GameState, MAX_STRIKES } from "./data";
+import Footer from "./Footer";
+import Status from "./Status";
 
 const App = () => {
-	const MAX_STRIKES = 3;
-
 	const [gameState, setGameState] = useState<GameState>(GameState.READY);
 	const [word, setWord] = useState<string>("");
 	const [currentGuess, setCurrentGuess] = useState<string>("");
@@ -28,7 +22,7 @@ const App = () => {
 		const locations: number[] = [];
 
 		word.split("").forEach((char, index) => {
-			if (char.toLowerCase() !== letter) return;
+			if (char !== letter) return;
 			locations.push(index);
 		});
 
@@ -36,27 +30,30 @@ const App = () => {
 			return incrementStrike();
 		}
 
-		setCurrentGuess((oldGuess) => {
-			const newGuess = oldGuess.split("");
-
-			locations.forEach((posIdx) => {
-				newGuess[posIdx] = letter;
-			});
-
-			return newGuess.join("");
+		const currentGuessSplit = currentGuess.split("");
+		locations.forEach((posIdx) => {
+			currentGuessSplit[posIdx] = letter;
 		});
 
-		if (currentGuess === word) {
+		const newGuess = currentGuessSplit.join("");
+		setCurrentGuess(newGuess);
+
+		if (newGuess === word) {
 			setGameState(GameState.WON);
+			console.log("game won");
 		}
 	};
 
 	const incrementStrike = () => {
-		setStrikes((oldStrikes) => oldStrikes + 1);
+		setStrikes((oldStrikes) => {
+			const newStrikes = oldStrikes + 1;
 
-		if (strikes >= MAX_STRIKES) {
-			setGameState(GameState.GAME_OVER);
-		}
+			if (newStrikes >= MAX_STRIKES) {
+				setGameState(GameState.GAME_OVER);
+			}
+
+			return newStrikes;
+		});
 	};
 
 	useEffect(() => {
@@ -73,19 +70,11 @@ const App = () => {
 	return (
 		<>
 			<h1 className="header">Hangman (React)</h1>
-			{/* <img src={viteLogo} className="logo" alt="Vite logo" /> */}
-			<div className="card">
-				<Word word={word} currentGuess={currentGuess} hint={hint} />
-			</div>
-			<Keyboard addLetter={addLetter} />
-			<footer>
-				<p className="footer">
-					Made with <span className="pink">❤</span> by{" "}
-					<a href="https://github.com/phyziyx" target="_blank">
-						Phyziyx
-					</a>
-				</p>
-			</footer>
+			<Hangman strikes={strikes} />
+			<Word currentGuess={currentGuess} hint={hint} />
+			<Status gameState={gameState} />
+			<Keyboard gameState={gameState} addLetter={addLetter} />
+			<Footer />
 		</>
 	);
 };

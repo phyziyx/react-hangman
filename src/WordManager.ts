@@ -8,8 +8,6 @@ const BLACKLISTED_CHARACTERS = [' ', `'`];
 
 class WordsManager {
 	censorWord = (word: string) => {
-		word = word.toLowerCase();
-
 		const letters = word.split('');
 		const charactersCount: ICharactersCount = {};
 		letters.forEach(letter => {
@@ -24,7 +22,7 @@ class WordsManager {
 		});
 
 		let censored = word;
-		for (let i = 0, len = sortedCharactersCount.length; i < len - 1; i++) {
+		for (let i = 0, len = sortedCharactersCount.length; i < len - 2; i++) {
 			const letter = sortedCharactersCount[i];
 			if (BLACKLISTED_CHARACTERS.includes(letter)) continue;
 
@@ -39,7 +37,7 @@ class WordsManager {
 		const idx = Math.floor(wordsLen * Math.random());
 
 		const selectedWord = wordsList[idx];
-		const newWord = selectedWord.word;
+		const newWord = selectedWord.word.toLowerCase();
 		const newGuess = this.censorWord(newWord);
 
 		return {

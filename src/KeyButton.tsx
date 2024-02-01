@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
+import { GameState } from "./data";
 
-const KeyButton = ({
-	letter,
-	addLetter,
-}: {
+interface IProps {
+	gameState: GameState;
 	letter: string;
 	addLetter(letter: string): void;
-}) => {
+}
+
+const KeyButton = ({ gameState, letter, addLetter }: IProps) => {
 	const [isDisabled, setDisabled] = useState<boolean>(false);
 
-	const clickHandler = () => {
+	const guessLetter = () => {
+		if (gameState !== GameState.PLAYING) return;
+
 		addLetter(letter);
 		setDisabled(true);
 	};
@@ -19,7 +22,7 @@ const KeyButton = ({
 			return;
 		}
 
-		clickHandler();
+		guessLetter();
 	};
 
 	useEffect(() => {
@@ -33,13 +36,7 @@ const KeyButton = ({
 	return (
 		<button
 			key={letter}
-			onKeyDown={(e) => {
-				console.log(e.key);
-				if (e.key.toLowerCase() === letter) {
-					clickHandler();
-				}
-			}}
-			onClick={() => clickHandler()}
+			onClick={() => guessLetter()}
 			disabled={isDisabled}
 		>
 			{letter}

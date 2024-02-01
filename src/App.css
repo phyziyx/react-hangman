@@ -4,28 +4,3 @@
 	padding: 2rem;
 	text-align: center;
 }
-
-.card {
-	padding: 2em;
-}
-
-.header {
-	top: 0%;
-	left: 0%;
-	width: 100%;
-	text-align: center;
-	position: fixed;
-}
-
-.footer {
-	bottom: 0%;
-	left: 0%;
-	width: 100%;
-	text-align: center;
-	position: fixed;
-	color: #888;
-}
-
-.pink {
-	color: #ff748c;
-}
