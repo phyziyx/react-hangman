@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GameState } from "./data";
+import { GameState } from "../data";
 
 interface IProps {
 	gameState: GameState;

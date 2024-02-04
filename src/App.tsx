@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import Keyboard from "./Keyboard";
-import Word from "./Word";
-import WordManager from "./WordManager";
-import Hangman from "./Hangman";
+import Keyboard from "./components/Keyboard";
+import Word from "./components/Word";
+import Hangman from "./components/Hangman";
 import { GameState, MAX_STRIKES } from "./data";
-import Footer from "./Footer";
-import Status from "./Status";
+import Footer from "./components/Footer";
+import Status from "./components/Status";
+import wordsManager from "./utilities/WordManager";
 
 const App = () => {
 	const [gameState, setGameState] = useState<GameState>(GameState.READY);
@@ -60,7 +60,7 @@ const App = () => {
 		if (gameState !== GameState.READY) return;
 
 		setGameState(GameState.PLAYING);
-		const { newWord, newGuess, newHint } = WordManager().selectWord();
+		const { newWord, newGuess, newHint } = wordsManager().selectWord();
 
 		setWord(newWord);
 		setCurrentGuess(newGuess);

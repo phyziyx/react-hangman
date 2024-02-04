@@ -1,5 +1,5 @@
 import KeyButton from "./KeyButton";
-import { GameState } from "./data";
+import { GameState } from "../data";
 
 interface IProps {
 	gameState: GameState;

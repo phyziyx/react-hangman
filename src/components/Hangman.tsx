@@ -1,7 +1,7 @@
-import strike_0 from "./assets/strike_0.webp";
-import strike_1 from "./assets/strike_1.webp";
-import strike_2 from "./assets/strike_2.webp";
-import strike_3 from "./assets/strike_3.webp";
+import strike_0 from "../assets/strike_0.webp";
+import strike_1 from "../assets/strike_1.webp";
+import strike_2 from "../assets/strike_2.webp";
+import strike_3 from "../assets/strike_3.webp";
 
 interface IProps {
 	strikes: number;
