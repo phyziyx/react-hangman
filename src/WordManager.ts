@@ -4,9 +4,13 @@ interface ICharactersCount {
 	[name: string]: number;
 }
 
-const BLACKLISTED_CHARACTERS = [' ', `'`];
-
 class WordsManager {
+	// These blacklisted characters are ignored
+	// when censoring the word, alternatively I
+	// could have allowed to only censor A - Z range
+	// Anywho, it works fine for now!
+	private BLACKLISTED_CHARACTERS = [' ', `'`];
+
 	censorWord = (word: string) => {
 		const letters = word.split('');
 		const charactersCount: ICharactersCount = {};
@@ -24,7 +28,7 @@ class WordsManager {
 		let censored = word;
 		for (let i = 0, len = sortedCharactersCount.length; i < len - 2; i++) {
 			const letter = sortedCharactersCount[i];
-			if (BLACKLISTED_CHARACTERS.includes(letter)) continue;
+			if (this.BLACKLISTED_CHARACTERS.includes(letter)) continue;
 
 			censored = censored.replaceAll(letter, '_');
 		}
