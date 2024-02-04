@@ -18,7 +18,7 @@ const KeyButton = ({ gameState, letter, addLetter }: IProps) => {
 	};
 
 	const keyDownHandler = (e: KeyboardEvent) => {
-		if (e.key.toLowerCase() !== letter.toLowerCase()) {
+		if (isDisabled || e.key.toLowerCase() !== letter.toLowerCase()) {
 			return;
 		}
 
