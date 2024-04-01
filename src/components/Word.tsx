@@ -6,9 +6,27 @@ interface IProps {
 const Word = ({ currentGuess, hint }: IProps) => {
 	return (
 		<>
-			<h2>{currentGuess}</h2>
-			<br />
-
+			<div
+				style={{
+					display: "flex",
+					columnGap: "2em",
+					position: "relative",
+					textTransform: "capitalize",
+					fontFamily: "monospace",
+					justifyContent: "center",
+					visibility: "visible",
+				}}
+			>
+				{currentGuess.split("").map((word) => (
+					<h2
+						style={{
+							borderBottom: "0.1em solid black",
+						}}
+					>
+						{word}
+					</h2>
+				))}
+			</div>
 			{hint && <b>Hint: {hint}</b>}
 			<br />
 		</>

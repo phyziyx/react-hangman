@@ -30,7 +30,7 @@ class WordsManager {
 			const letter = sortedCharactersCount[i];
 			if (this.BLACKLISTED_CHARACTERS.includes(letter)) continue;
 
-			censored = censored.replaceAll(letter, '_');
+			censored = censored.replaceAll(letter, '?');
 		}
 
 		return censored;

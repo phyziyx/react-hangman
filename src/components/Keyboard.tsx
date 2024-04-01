@@ -6,6 +6,9 @@ interface IProps {
 	addLetter(letter: string): void;
 }
 
+// Perhaps here, we could have done some ASCII shenanigans
+// to generate the keyboard rather than hardcoding it
+
 const Keyboard = ({ gameState, addLetter }: IProps) => {
 	return (
 		<>
