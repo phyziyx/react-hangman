@@ -17,8 +17,9 @@ const Word = ({ currentGuess, hint }: IProps) => {
 					visibility: "visible",
 				}}
 			>
-				{currentGuess.split("").map((word) => (
+				{currentGuess.split("").map((word, idx) => (
 					<h2
+						key={idx}
 						style={{
 							borderBottom: "0.1em solid black",
 						}}

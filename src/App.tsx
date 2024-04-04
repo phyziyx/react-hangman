@@ -69,7 +69,7 @@ const App = () => {
 
 	return (
 		<>
-			<h1 className="header">Hangman (React)</h1>
+			<h1 className="header">Hangman</h1>
 			<Hangman strikes={strikes} />
 			<Word currentGuess={currentGuess} hint={hint} />
 			<Status gameState={gameState} />
